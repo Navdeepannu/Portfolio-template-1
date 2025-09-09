@@ -171,8 +171,8 @@ export const Plasma: React.FC<PlasmaProps> = ({
       res[1] = gl.drawingBufferHeight;
     };
 
-  const ro = new ResizeObserver(setSize);
-  ro.observe(container);
+    const ro = new ResizeObserver(setSize);
+    ro.observe(container);
     setSize();
 
     let raf = 0;
