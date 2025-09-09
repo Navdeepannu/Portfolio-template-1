@@ -106,6 +106,7 @@ export const Plasma: React.FC<PlasmaProps> = ({
 
   useEffect(() => {
     if (!containerRef.current) return;
+    const container = containerRef.current;
 
     const useCustomColor = color ? 1.0 : 0.0;
     const customColorRgb = color ? hexToRgb(color) : [1, 1, 1];
@@ -148,7 +149,7 @@ export const Plasma: React.FC<PlasmaProps> = ({
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!mouseInteractive) return;
-      const rect = containerRef.current!.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       mousePos.current.x = e.clientX - rect.left;
       mousePos.current.y = e.clientY - rect.top;
       const mouseUniform = program.uniforms.uMouse.value as Float32Array;
@@ -170,21 +171,23 @@ export const Plasma: React.FC<PlasmaProps> = ({
       res[1] = gl.drawingBufferHeight;
     };
 
-    const ro = new ResizeObserver(setSize);
-    ro.observe(containerRef.current);
+  const ro = new ResizeObserver(setSize);
+  ro.observe(container);
     setSize();
 
     let raf = 0;
     const t0 = performance.now();
     const loop = (t: number) => {
-      let timeValue = (t - t0) * 0.001;
+      const timeValue = (t - t0) * 0.001;
 
       if (direction === "pingpong") {
         const cycle = Math.sin(timeValue * 0.5) * directionMultiplier;
-        (program.uniforms.uDirection as any).value = cycle;
+        (program.uniforms.uDirection as unknown as { value: number }).value =
+          cycle;
       }
 
-      (program.uniforms.iTime as any).value = timeValue;
+      (program.uniforms.iTime as unknown as { value: number }).value =
+        timeValue;
       renderer.render({ scene: mesh });
       raf = requestAnimationFrame(loop);
     };
@@ -193,11 +196,11 @@ export const Plasma: React.FC<PlasmaProps> = ({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
-      if (mouseInteractive && containerRef.current) {
-        containerRef.current.removeEventListener("mousemove", handleMouseMove);
+      if (mouseInteractive && container) {
+        container.removeEventListener("mousemove", handleMouseMove);
       }
       try {
-        containerRef.current?.removeChild(canvas);
+        container?.removeChild(canvas);
       } catch {}
     };
   }, [color, speed, direction, scale, opacity, mouseInteractive]);

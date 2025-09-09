@@ -3,7 +3,6 @@ import Container from "./container";
 import LandingProjects from "./landing-projects";
 import { Button } from "./ui/button";
 import { IconArrowRight } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
 
 const Projects = () => {
   return (

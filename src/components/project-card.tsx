@@ -7,7 +7,7 @@ type ProjectCardProps = {
   link?: string;
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, image, link }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, image }) => {
   return (
     <article className="shadow-input group mx-auto w-full max-w-2xl cursor-pointer overflow-hidden rounded-xl bg-white ring-1 ring-neutral-200 transition-colors duration-300 hover:bg-neutral-200/80">
       <div className="p-4">
