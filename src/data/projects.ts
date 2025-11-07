@@ -7,38 +7,33 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "landio",
-    name: "Landio",
-    image:
-      "https://images.unsplash.com/photo-1702479744062-1880502275b1?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0",
-    link: "/projects/landio",
+    id: "landing",
+    name: "Landing",
+    image: "/project1.png",
+    link: "/hex-ui.com/templates",
   },
   {
-    id: "meily",
-    name: "Meily",
-    image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0",
-    link: "/projects/meily",
+    id: "forms",
+    name: "Creative Forms",
+    image: "/project5.png",
+    link: "/hex-ui.com/templates",
   },
   {
     id: "studio",
-    name: "Studio Case",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0",
-    link: "/projects/studio",
+    name: "Portfolio Design",
+    image: "/project4.png",
+    link: "/hex-ui.com/templates",
   },
   {
     id: "brand",
     name: "Branding Work",
-    image:
-      "https://images.unsplash.com/photo-1559028012-48123f47e6c6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0",
-    link: "/projects/branding",
+    image: "/project4.png",
+    link: "/navdeepsingh.dev",
   },
   {
     id: "dash",
     name: "Dashboard UI",
-    image:
-      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "/project5.png",
     link: "/projects/dashboard",
   },
   {

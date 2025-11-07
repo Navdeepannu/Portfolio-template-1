@@ -11,9 +11,8 @@ const Container = ({
   return (
     <div
       className={cn(
+        "mx-auto mt-20 flex w-full max-w-7xl flex-col items-start gap-4 px-6 md:px-8 lg:px-12",
         className,
-
-        "mx-auto mt-20 flex min-h-screen w-full max-w-3xl flex-col items-start gap-4 pl-20",
       )}
     >
       {children}

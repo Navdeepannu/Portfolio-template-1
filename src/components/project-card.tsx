@@ -1,31 +1,52 @@
 import Image from "next/image";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 type ProjectCardProps = {
   title: string;
   image: string;
   link?: string;
+  variant?: "large" | "medium" | "small" | "wide";
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, image }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  image,
+  variant = "medium",
+}) => {
+  const titleSizeClasses = {
+    large: "text-xl md:text-2xl",
+    medium: "text-lg md:text-xl",
+    small: "text-base md:text-lg",
+    wide: "text-lg md:text-xl",
+  };
+
   return (
-    <article className="shadow-input group mx-auto w-full max-w-2xl cursor-pointer overflow-hidden rounded-xl bg-white ring-1 ring-neutral-200 transition-colors duration-300 hover:bg-neutral-200/80">
-      <div className="p-4">
-        {/* framed image */}
-        <div className="h-100 w-140 overflow-hidden rounded-lg shadow-lg shadow-neutral-500/70">
+    <article className="shadow-input group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-white ring-1 ring-neutral-200 transition-all duration-300 hover:bg-neutral-200/80 hover:shadow-lg">
+      <div className="flex flex-1 flex-col p-3 md:p-4">
+        {/* framed image - takes up remaining space */}
+        <div className="relative w-full flex-1 overflow-hidden rounded-lg shadow-lg shadow-neutral-500/70 transition-transform duration-300 group-hover:scale-[1.02]">
           <Image
             src={image}
             alt={title}
-            width={400}
-            height={400}
-            className="h-full w-full object-cover object-center"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-center"
+            priority={variant === "large"}
           />
         </div>
 
         {/* title row */}
-        <div className="mt-4 flex items-center justify-between px-6 py-4">
-          <h3 className="text-lg font-medium text-neutral-900">{title}</h3>
-          <span className="text-neutral-400">
+        <div className="mt-3 flex flex-shrink-0 items-center justify-between px-2 py-2 md:mt-4 md:px-4 md:py-3">
+          <h3
+            className={cn(
+              "font-medium text-neutral-900",
+              titleSizeClasses[variant]
+            )}
+          >
+            {title}
+          </h3>
+          <span className="text-neutral-400 transition-colors group-hover:text-neutral-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
