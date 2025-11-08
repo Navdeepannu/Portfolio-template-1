@@ -1,4 +1,3 @@
-import { CTA } from "@/components/animated-cta";
 import Contact from "@/components/contact";
 import Hero from "@/components/hero";
 import Process from "@/components/process";

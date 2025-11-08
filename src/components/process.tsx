@@ -84,50 +84,50 @@ const Process = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="bg-white py-24 md:py-32">
+    <div ref={sectionRef} className="border-t border-dashed border-neutral-200 bg-white py-8 md:py-10 lg:py-12">
       <Container>
         {/* Section Header */}
-        <div className="mb-16 md:mb-20 flex flex-col items-start gap-4">
-          <p className="flex items-center gap-2 text-base">
-            <span className="size-2 rounded-full bg-black" />
+        <div className="mb-16 flex flex-col items-start gap-4 md:mb-12 md:gap-3 lg:mb-20 lg:gap-4">
+          <p className="flex items-center gap-2 text-base md:text-[14px] lg:text-base">
+            <span className="size-2 rounded-full bg-black md:size-1.5 lg:size-2" />
             Process
           </p>
 
-          <h1 className="font-times-heading text-[36px] md:text-[42px] leading-tight max-w-2xl">
+          <h1 className="font-times-heading max-w-2xl text-[36px] leading-tight md:text-[36px] lg:text-[42px]">
             The strategy behind exceptional results
           </h1>
         </div>
 
         {/* Process Cards */}
-        <div className="mx-auto w-full max-w-5xl space-y-8 md:space-y-10">
+        <div className="grid grid-cols-1 gap-6 md:gap-5 lg:grid-cols-2 lg:gap-8">
           {processSteps.map((step, index) => (
             <div
               key={step.id}
-              className={`relative rounded-2xl md:rounded-3xl bg-neutral-100 p-8 md:p-10 lg:p-12 transition-all duration-500 ${
-                animationProgress > index * 50
+              className={`relative rounded-2xl bg-neutral-100 p-8 transition-all duration-500 md:rounded-2xl md:p-7 lg:rounded-3xl lg:p-12 ${
+                animationProgress > index * 25
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
               }`}
             >
               {/* Step Label */}
-              <div className="mb-6 text-sm text-neutral-500">{step.step}</div>
+              <div className="mb-6 text-sm text-neutral-500 md:mb-4 md:text-[13px] lg:mb-6 lg:text-sm">{step.step}</div>
 
               {/* Title */}
-              <h2 className="mb-4 text-2xl md:text-3xl font-normal text-black">
+              <h2 className="mb-4 text-2xl font-normal text-black md:mb-3 md:text-xl lg:mb-4 lg:text-3xl">
                 {step.title}
               </h2>
 
               {/* Description */}
-              <p className="mb-12 md:mb-14 max-w-2xl text-base leading-relaxed text-neutral-700">
+              <p className="mb-12 max-w-2xl text-base leading-relaxed text-neutral-700 md:mb-10 md:text-[15px] lg:mb-14 lg:text-base">
                 {step.description}
               </p>
 
               {/* Icon Container */}
               <div className="flex items-end justify-between">
-                <div className="text-neutral-400">{step.icon}</div>
+                <div className="text-neutral-400 [&>svg]:md:h-10 [&>svg]:md:w-10 [&>svg]:lg:h-12 [&>svg]:lg:w-12">{step.icon}</div>
 
                 {/* Step Number */}
-                <div className="text-sm text-neutral-400">- {step.number}</div>
+                <div className="text-sm text-neutral-400 md:text-[13px] lg:text-sm">- {step.number}</div>
               </div>
             </div>
           ))}
