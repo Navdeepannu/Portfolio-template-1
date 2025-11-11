@@ -2,14 +2,19 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Container from "./container";
-import { Calendar, Hand, Rocket, PackageCheck } from "lucide-react";
+import {
+  AnimatedCalendar,
+  AnimatedHand,
+  AnimatedRocket,
+  AnimatedPackageCheck,
+} from "./animated-icons";
 
 interface ProcessStep {
   id: number;
   step: string;
   title: string;
   description: string;
-  icon: React.ReactNode;
+  IconComponent: React.FC<{ className?: string; animate?: boolean }>;
   number: string;
 }
 
@@ -20,7 +25,7 @@ const processSteps: ProcessStep[] = [
     title: "Let's Get In Touch",
     description:
       "Start by reaching out through our contact page. Fill out the form or book a call to discuss your project, goals, and ideas in even greater detail.",
-    icon: <Calendar className="h-12 w-12 stroke-[1.5]" />,
+    IconComponent: AnimatedCalendar,
     number: "001",
   },
   {
@@ -29,7 +34,7 @@ const processSteps: ProcessStep[] = [
     title: "Grab Your Designs",
     description:
       "Tell me your unique vision, and I'll create stunning, functional designs that perfectly align with your goals and bring your ideas to life seamlessly.",
-    icon: <Hand className="h-12 w-12 stroke-[1.5]" />,
+    IconComponent: AnimatedHand,
     number: "002",
   },
   {
@@ -38,7 +43,7 @@ const processSteps: ProcessStep[] = [
     title: "Kickstart Development",
     description:
       "I expertly transform your designs into a powerful, scalable solution, fully ready to launch and optimized for performance, usability, and growth.",
-    icon: <Rocket className="h-12 w-12 stroke-[1.5]" />,
+    IconComponent: AnimatedRocket,
     number: "003",
   },
   {
@@ -47,7 +52,7 @@ const processSteps: ProcessStep[] = [
     title: "And Hand Over",
     description:
       "Receive a fully tested, polished, high-quality product tailored to your needs with support for seamless performance and long-term success.",
-    icon: <PackageCheck className="h-12 w-12 stroke-[1.5]" />,
+    IconComponent: AnimatedPackageCheck,
     number: "004",
   },
 ];
@@ -55,13 +60,15 @@ const processSteps: ProcessStep[] = [
 const Process = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Start animation when section is visible
+          if (entry.isIntersecting && !hasAnimatedRef.current) {
+            // Start animation when section is visible (only once)
+            hasAnimatedRef.current = true;
             let progress = 0;
             const interval = setInterval(() => {
               progress += 1;
@@ -84,7 +91,10 @@ const Process = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="border-t border-dashed border-neutral-200 bg-white py-8 md:py-10 lg:py-12">
+    <div
+      ref={sectionRef}
+      className="border-t border-dashed border-neutral-200 bg-white py-8 md:py-10 lg:py-12"
+    >
       <Container>
         {/* Section Header */}
         <div className="mb-16 flex flex-col items-start gap-4 md:mb-12 md:gap-3 lg:mb-20 lg:gap-4">
@@ -110,7 +120,9 @@ const Process = () => {
               }`}
             >
               {/* Step Label */}
-              <div className="mb-6 text-sm text-neutral-500 md:mb-4 md:text-[13px] lg:mb-6 lg:text-sm">{step.step}</div>
+              <div className="mb-6 text-sm text-neutral-500 md:mb-4 md:text-[13px] lg:mb-6 lg:text-sm">
+                {step.step}
+              </div>
 
               {/* Title */}
               <h2 className="mb-4 text-2xl font-normal text-black md:mb-3 md:text-xl lg:mb-4 lg:text-3xl">
@@ -124,10 +136,17 @@ const Process = () => {
 
               {/* Icon Container */}
               <div className="flex items-end justify-between">
-                <div className="text-neutral-400 [&>svg]:md:h-10 [&>svg]:md:w-10 [&>svg]:lg:h-12 [&>svg]:lg:w-12">{step.icon}</div>
+                <div className="text-neutral-400 [&>svg]:md:h-10 [&>svg]:md:w-10 [&>svg]:lg:h-12 [&>svg]:lg:w-12">
+                  <step.IconComponent
+                    className="h-12 w-12 stroke-[1.5]"
+                    animate={animationProgress > index * 25}
+                  />
+                </div>
 
                 {/* Step Number */}
-                <div className="text-sm text-neutral-400 md:text-[13px] lg:text-sm">- {step.number}</div>
+                <div className="text-sm text-neutral-400 md:text-[13px] lg:text-sm">
+                  - {step.number}
+                </div>
               </div>
             </div>
           ))}

@@ -4,8 +4,9 @@ import React from "react";
 import { Button } from "./ui/button";
 // import Plasma from "./ui/plasma-background";
 import Image from "next/image";
+import Link from "next/link";
 
-const Hero = () => {
+export const Hero = () => {
   return (
     <div className="h-[65vh] bg-gradient-to-b from-neutral-100 to-[#f4f4f4]">
       <div className="z-10 mx-auto flex h-[60vh] w-full max-w-7xl items-center px-6 md:px-6 lg:px-12">
@@ -64,6 +65,7 @@ const Hero = () => {
           {/* CTA */}
           <div className="mt-3 md:mt-2 lg:mt-3">
             <Button
+              asChild
               variant="default"
               size="lg"
               className={cn(
@@ -73,8 +75,13 @@ const Hero = () => {
                 "transition duration-200 hover:scale-99",
               )}
             >
-              Get in Touch Today
-              <IconArrowUpRight className="size-5 stroke-2 text-neutral-200 transition-colors duration-200 group-hover:text-neutral-200/90 md:size-4 lg:size-5" />
+              <Link
+                target="_blank"
+                href={"https://cal.com/navdeepannu/30min?overlayCalendar=true"}
+              >
+                Book a Call
+                <IconArrowUpRight className="size-5 stroke-2 text-neutral-200 transition-colors duration-200 group-hover:text-neutral-200/90 md:size-4 lg:size-5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -101,5 +108,3 @@ const Hero = () => {
     </div>
   );
 };
-
-export default Hero;

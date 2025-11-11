@@ -110,7 +110,7 @@ const Contact = () => {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
-                    placeholder="Ikta Solilonk"
+                    placeholder="John Doe"
                     required
                     className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-400 focus:outline-none md:px-3 md:py-2.5 md:text-[13px] lg:px-4 lg:py-3 lg:text-sm"
                   />
@@ -128,7 +128,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="portal@support.com"
+                    placeholder="alpha@support.com"
                     required
                     className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-400 focus:outline-none md:px-3 md:py-2.5 md:text-[13px] lg:px-4 lg:py-3 lg:text-sm"
                   />
@@ -194,14 +194,15 @@ const Contact = () => {
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-medium text-neutral-900 md:text-[13px] lg:text-sm">
-                    navdeepanuu1@gmail.com
+                    navdeepannu1@gmail.com
                   </p>
                   <p className="text-xs text-neutral-600 md:text-[11px] lg:text-xs">
                     reply within 24 hrs
                   </p>
                 </div>
                 <div className="flex items-center gap-2 md:gap-1.5 lg:gap-2">
-                  <div className="h-2 w-2 rounded-full bg-green-500 md:h-1.5 md:w-1.5 lg:h-2 lg:w-2" />
+                  <div className="relative h-2 w-2 rounded-full bg-green-500 md:h-1.5 md:w-1.5 lg:h-2 lg:w-2" />
+                  <div className="animate-caret-blink absolute h-2 w-2 rounded-full bg-green-200 md:h-1.5 md:w-1.5 lg:h-2 lg:w-2" />
                   <span className="text-xs font-medium text-neutral-700 md:text-[11px] lg:text-xs">
                     AVAILABLE
                   </span>
@@ -215,7 +216,7 @@ const Contact = () => {
                 Preffer to Book a call ?
               </p>
               <a
-                href="https://cal.com/navdeepannu"
+                href="https://cal.com/navdeepannu/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-black underline transition-colors hover:text-neutral-600 md:text-[13px] lg:text-sm"

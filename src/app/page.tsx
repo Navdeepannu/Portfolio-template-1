@@ -1,5 +1,5 @@
 import Contact from "@/components/contact";
-import Hero from "@/components/hero";
+import { Hero } from "@/components/hero";
 import Process from "@/components/process";
 import Projects from "@/components/projects";
 import Services from "@/components/services";

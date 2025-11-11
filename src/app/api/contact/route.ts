@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if API key is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      return NextResponse.json(
+        { error: "Email service is not configured. Please contact the administrator." },
+        { status: 500 },
+      );
+    }
+
     const body = await request.json();
-    const { fullName, email, website, budget, message } = body;
+    const { fullName, email, message } = body;
 
     // Validate required fields
-    if (!fullName || !email || !budget || !message) {
+    if (!fullName || !email || !message) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
@@ -28,9 +40,6 @@ New Contact Form Submission
 
 From: ${fullName}
 Email: ${email}
-Website: ${website || "Not provided"}
-Budget: ${budget}
-
 Message:
 ${message}
 
@@ -38,59 +47,36 @@ ${message}
 Sent from Portfolio Contact Form
     `.trim();
 
-    // For production, you would integrate with an email service like:
-    // - Resend (recommended for Next.js)
-    // - SendGrid
-    // - AWS SES
-    // - Nodemailer with SMTP
+    console.log("Attempting to send email via Resend...");
 
-    // Example with Resend (you would need to install and configure):
-    /*
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'navdeepanuu1@gmail.com',
+    // Send email using Resend
+    const { data, error } = await resend.emails.send({
+      from: "onboarding@resend.dev", // You can change this to your verified domain
+      to: "navdeepannu0@gmail.com", // Must match your Resend account email in testing mode
       subject: `New Contact Form Submission from ${fullName}`,
       text: emailContent,
-    });
-    */
-
-    // For now, we'll use a web3forms or similar service via fetch
-    // This is a simple solution that doesn't require backend email configuration
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY || "",
-        name: fullName,
-        email: email,
-        subject: `New Contact Form Submission from ${fullName}`,
-        message: emailContent,
-        from_name: "Portfolio Contact Form",
-        to: "navdeepanuu1@gmail.com",
-      }),
+      replyTo: email, // This allows you to reply directly to the person who submitted the form
     });
 
-    const result = await response.json();
-
-    if (response.ok && result.success) {
+    if (error) {
+      console.error("Resend API error:", JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { success: true, message: "Email sent successfully" },
-        { status: 200 },
+        { error: `Failed to send email: ${error.message || "Unknown error"}` },
+        { status: 500 },
       );
-    } else {
-      throw new Error(result.message || "Failed to send email");
     }
+
+    console.log("Email sent successfully:", data);
+
+    return NextResponse.json(
+      { success: true, message: "Email sent successfully", data },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Contact form error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to send message. Please try again later." },
+      { error: `Failed to send message: ${errorMessage}` },
       { status: 500 },
     );
   }
