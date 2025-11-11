@@ -8,10 +8,7 @@ interface IconProps {
   animate?: boolean;
 }
 
-export const AnimatedCalendar: React.FC<IconProps> = ({
-  className = "",
-  animate = false,
-}) => {
+export const AnimatedCalendar: React.FC<IconProps> = () => {
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
@@ -50,10 +47,7 @@ export const AnimatedCalendar: React.FC<IconProps> = ({
   );
 };
 
-export const AnimatedHand: React.FC<IconProps> = ({
-  className = "",
-  animate = false,
-}) => {
+export const AnimatedHand: React.FC<IconProps> = () => {
   return (
     <motion.svg
       initial={{
@@ -145,10 +139,7 @@ export const AnimatedHand: React.FC<IconProps> = ({
   );
 };
 
-export const AnimatedRocket: React.FC<IconProps> = ({
-  className = "",
-  animate = false,
-}) => {
+export const AnimatedRocket: React.FC<IconProps> = ({ className = "" }) => {
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +193,6 @@ export const AnimatedRocket: React.FC<IconProps> = ({
 
 export const AnimatedPackageCheck: React.FC<IconProps> = ({
   className = "",
-  animate = false,
 }) => {
   return (
     <motion.svg
